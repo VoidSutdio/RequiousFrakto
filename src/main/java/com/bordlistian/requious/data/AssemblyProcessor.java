@@ -42,6 +42,8 @@ public class AssemblyProcessor {
     MachineContainer container;
     MachineCommandSender commandSender;
     boolean variablesDirty = false;
+    private List<Slot> cachedSlots;
+    private boolean slotsDirty = true;
 
     public AssemblyProcessor(AssemblyData data) {
         this.data = data;
@@ -330,6 +332,7 @@ public class AssemblyProcessor {
                     slots[x][y] = component.createSlot();
             }
         }
+        invalidateSlotsCache();
     }
 
     private void addToCollector(Slot slot) {
@@ -364,15 +367,23 @@ public class AssemblyProcessor {
     }
 
     public List<Slot> getSlots() {
-        List<Slot> rList = new ArrayList<>();
-        for (int x = 0; x < slots.length; x++) {
-            for (int y = 0; y < slots[x].length; y++) {
-                Slot slot = slots[x][y];
-                if (slot != null)
-                    rList.add(slot);
+        if (slotsDirty || cachedSlots == null) {
+            List<Slot> rList = new ArrayList<>();
+            for (int x = 0; x < slots.length; x++) {
+                for (int y = 0; y < slots[x].length; y++) {
+                    Slot slot = slots[x][y];
+                    if (slot != null)
+                        rList.add(slot);
+                }
             }
+            cachedSlots = rList;
+            slotsDirty = false;
         }
-        return rList;
+        return cachedSlots;
+    }
+
+    public void invalidateSlotsCache() {
+        slotsDirty = true;
     }
 
     public void update() {

@@ -280,6 +280,7 @@ public class ComponentItem extends ComponentBase {
         List<IItemSlot> slots = new ArrayList<>();
         int pushIndex;
         private int successOperation;
+        private Boolean canAutoOutputCache;
 
         public Collector(ComponentFace face) {
             this.face = face;
@@ -287,6 +288,7 @@ public class ComponentItem extends ComponentBase {
 
         private void addSlot(IItemSlot slot) {
             slots.add(slot);
+            canAutoOutputCache = null;
         }
 
         @Override
@@ -319,10 +321,16 @@ public class ComponentItem extends ComponentBase {
         }
 
         private boolean canAutoOutput() {
-            for (IItemSlot slot : slots) {
-                if (slot.getPushItem().active)
-                    return true;
+            if (canAutoOutputCache != null) {
+                return canAutoOutputCache;
             }
+            for (IItemSlot slot : slots) {
+                if (slot.getPushItem().active) {
+                    canAutoOutputCache = true;
+                    return true;
+                }
+            }
+            canAutoOutputCache = false;
             return false;
         }
 
