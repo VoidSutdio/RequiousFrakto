@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fml.common.Optional;
 import org.lwjgl.input.Mouse;
 import com.bordlistian.requious.Requious;
 import com.bordlistian.requious.data.AssemblyProcessor;
@@ -154,7 +155,7 @@ public class GuiAssembly extends GuiContainer {
             this.itemRender.renderItemAndEffectIntoGUI(this.mc.player, itemstack, i, j);
 
             if (Mods.ITEM_BORDERS.isPresent()) {
-                ItemBorders.renderBorder(slotIn);
+                renderItemBorders(slotIn);
             }
 
             this.itemRender.renderItemOverlayIntoGUI(this.fontRenderer, itemstack, i, j, s);
@@ -220,5 +221,10 @@ public class GuiAssembly extends GuiContainer {
             if (slot instanceof BaseSlot)
                 ((BaseSlot) slot).clientScroll((int) Math.signum(wheel));
         }
+    }
+
+    @Optional.Method(modid = "itemborders")
+    private void renderItemBorders(Slot slot) {
+        ItemBorders.renderBorder(slot);
     }
 }

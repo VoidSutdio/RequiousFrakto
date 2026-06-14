@@ -1,12 +1,18 @@
 package com.bordlistian.requious.compat.crafttweaker;
 
+import com.bordlistian.requious.recipe.ResultBase;
+import com.bordlistian.requious.recipe.ResultEnergy;
+import com.bordlistian.requious.recipe.ResultFluid;
+import com.bordlistian.requious.recipe.ResultItem;
+import com.bordlistian.requious.recipe.ResultJEI;
+import com.bordlistian.requious.recipe.ResultLaser;
+import com.bordlistian.requious.recipe.ResultWorld;
 import crafttweaker.annotations.ZenRegister;
 import crafttweaker.api.item.IItemStack;
 import crafttweaker.api.liquid.ILiquidStack;
 import crafttweaker.api.minecraft.CraftTweakerMC;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
-import com.bordlistian.requious.recipe.*;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenGetter;
@@ -94,18 +100,18 @@ public class RecipeContainer {
     }
 
     @ZenMethod
-    public void addEnergyOutput(String group, long energy, int minInsert) {
+    public void addEnergyOutput(String group, long energy, long minInsert) {
         outputs.add(new ResultEnergy(group, energy, minInsert));
     }
 
     @ZenMethod
     public void addEUOutput(String group, int energy) {
-        addEnergyOutput(group, energy * 4);
+        addEnergyOutput(group, energy * 4L);
     }
 
     @ZenMethod
     public void addEUOutput(String group, int energy, int minInsert) {
-        addEnergyOutput(group, energy * 4L, minInsert * 4);
+        addEnergyOutput(group, energy * 4L, minInsert * 4L);
     }
 
     @ZenMethod
@@ -116,6 +122,11 @@ public class RecipeContainer {
     @ZenMethod
     public void addWorldOutput(IWorldFunction function) {
         outputs.add(new ResultWorld(function));
+    }
+
+    @ZenMethod
+    public void addJEIInfo(String group, String tooltip, SlotVisualCT slotVisual) {
+        outputs.add(new ResultJEI(group, new String[] {tooltip}, SlotVisualCT.unpack(slotVisual)));
     }
 
     @ZenMethod

@@ -131,6 +131,12 @@ public class AssemblyRecipe {
     }
 
     @ZenMethod
+    public AssemblyRecipe addJEIInfo(String group, String tooltip, SlotVisualCT slotVisual) {
+        requirements.add(new RequirementJEI(group, new String[] {tooltip}, SlotVisualCT.unpack(slotVisual)));
+        return this;
+    }
+
+    @ZenMethod
     public AssemblyRecipe addJEIInfo(String group, String[] tooltips, SlotVisualCT slotVisual) {
         requirements.add(new RequirementJEI(group, tooltips, SlotVisualCT.unpack(slotVisual)));
         return this;
