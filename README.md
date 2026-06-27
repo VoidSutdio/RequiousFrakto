@@ -15,7 +15,7 @@ Fork [Requious Frakto](https://github.com/DaedalusGame/RequiousFrakto) with some
 ## Features
 Everything is based on original mod, but some more usable modifications have been made
 
-- Slot placement grid has been changed, now it is a multiple of 9 pixels instead of 18
+- JEI Slot placement grid has been changed, now it is a multiple of 9 pixels instead of 18
 - New ZenMethods and JSON machine settings
 - Switching the interaction with energy to long values (compatible with [Flux Network](https://www.curseforge.com/minecraft/mc-mods/flux-networks))
 - Includes [IC2-No](https://github.com/XHL315/IC2-No) to fix compatibility with Industrial Craft 2
