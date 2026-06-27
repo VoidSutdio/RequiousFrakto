@@ -280,56 +280,120 @@ public class TileEntityAssembly extends TileEntity implements ITickable, ILaserA
     @Override
     @Optional.Method(modid = "ic2")
     public boolean emitsEnergyTo(IEnergyAcceptor acceptor, EnumFacing side) {
+        if (processor == null) {
+            return false;
+        }
+
         ComponentEnergy.CollectorIC2 handler = processor.getIC2Handler();
+        if (handler == null) {
+            return false;
+        }
+
         return handler.canOutputEnergy(toLocalSide(getFacing(), side), side);
     }
 
     @Override
     @Optional.Method(modid = "ic2")
     public double getDemandedEnergy() {
+        if (processor == null) {
+            return 0;
+        }
+
         ComponentEnergy.CollectorIC2 handler = processor.getIC2Handler();
+        if (handler == null) {
+            return 0;
+        }
+
         return handler.getInputEnergy();
     }
 
     @Override
     @Optional.Method(modid = "ic2")
     public int getSinkTier() {
+        if (processor == null) {
+            return 0;
+        }
+
         ComponentEnergy.CollectorIC2 handler = processor.getIC2Handler();
+        if (handler == null) {
+            return 0;
+        }
+
         return handler.getInputTier();
     }
 
     @Override
     @Optional.Method(modid = "ic2")
     public double injectEnergy(EnumFacing side, double amount, double voltage) {
+        if (processor == null) {
+            return amount;
+        }
+
         ComponentEnergy.CollectorIC2 handler = processor.getIC2Handler();
+        if (handler == null) {
+            return amount;
+        }
+
         return handler.inject(toLocalSide(getFacing(), side), side, amount, voltage);
     }
 
     @Override
     @Optional.Method(modid = "ic2")
     public boolean acceptsEnergyFrom(IEnergyEmitter emitter, EnumFacing side) {
+        if (processor == null) {
+            return false;
+        }
+
         ComponentEnergy.CollectorIC2 handler = processor.getIC2Handler();
+        if (handler == null) {
+            return false;
+        }
+
         return handler.canInputEnergy(toLocalSide(getFacing(), side), side);
     }
 
     @Override
     @Optional.Method(modid = "ic2")
     public double getOfferedEnergy() {
+        if (processor == null) {
+            return 0;
+        }
+
         ComponentEnergy.CollectorIC2 handler = processor.getIC2Handler();
+        if (handler == null) {
+            return 0;
+        }
+
         return handler.getOutputEnergy();
     }
 
     @Override
     @Optional.Method(modid = "ic2")
     public void drawEnergy(double amount) {
+        if (processor == null) {
+            return;
+        }
+
         ComponentEnergy.CollectorIC2 handler = processor.getIC2Handler();
+        if (handler == null) {
+            return;
+        }
+
         handler.draw(amount);
     }
 
     @Override
     @Optional.Method(modid = "ic2")
     public int getSourceTier() {
+        if (processor == null) {
+            return 0;
+        }
+
         ComponentEnergy.CollectorIC2 handler = processor.getIC2Handler();
+        if (handler == null) {
+            return 0;
+        }
+
         return handler.getOutputTier();
     }
 
